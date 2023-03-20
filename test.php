@@ -15,7 +15,7 @@ $class->rec = [
 $class->attach = [
     [
         "name" => "ddl.xlsx",
-        "url" => "https://mail-system-1308485183.cos.ap-chengdu.myqcloud.com/22669459/dev/cGhwdGVzdDRAZGluZ3N0YXJ0ZWNoLmNvbQ%3D%3D/files/ddl.xlsx",
+        "url" => "www.baidu.com/a.jpg",
         "formattedSize" => "21.08KB"
     ]
 ];
