@@ -138,7 +138,7 @@ class SendMail
             throw new \Exception('大附件数据格式错误');
         }
 
-        return [
+        $arr= [
             'subject' => $this->subject,
             'sendNickname' => $this->sendNickname,
             'sendMail' => $this->sendMail,
@@ -148,10 +148,24 @@ class SendMail
             'ccs' => $this->ccs,
             'bccs' => $this->bccs,
             'confirmReadingTo' => $this->confirmReadingTo,
-            'attach' => $this->attach,
-            'largeFile' => $this->largeFile,
             'mailType' => 1,
         ];
+        if($this->attach)
+        {
+            $arr['attach']= array_map(function ($item){
+                $item['size']=!isset($item['size'])||!is_int($item['size'])?$this->getSizeAes($item['formattedSize']):$item['size'];
+                return $item;
+            },$this->attach);
+        }
+
+        if($this->largeFile)
+        {
+            $arr['largeFile']= array_map(function ($item){
+                $item['size']=!isset($item['size'])||!is_int($item['size'])?$this->getSizeAes($item['formattedSize']):$item['size'];
+                return $item;
+            },$this->largeFile);
+        }
+        return $arr;
     }
 
     /**
@@ -227,5 +241,35 @@ class SendMail
     private function isSuccess(array $res):bool
     {
         return isset($res['code'])&&$res['code']=='B0001';
+    }
+
+   private function is_num($i)
+    {
+        return is_numeric($i) ? $i : 0;
+    }
+
+
+    /**
+     * KB，MB，GB 转成字节
+     * @param string $size
+     * @return int
+     */
+    private function getSizeAes(string $size)
+    {
+        $size = strtolower($size);
+        $Unit = preg_replace('/[^a-z]/', '', $size);
+        if ($Unit == 'bytes' || $Unit == 'byte' || $Unit == 'b') {
+            return str_replace(['Byte', 'byte', 'Bytes', 'bytes', 'b'], '', $size);
+        } elseif ($Unit == 'kb') {
+            $i = $this->is_num(str_replace(['KB', 'kb'], '', $size));
+            return $i * 1024;
+        } elseif ($Unit == 'mb') {
+            $i = $this->is_num(str_replace(['MB', 'mb'], '', $size));
+            return $i * 1024 * 1024;
+        } elseif ($Unit == 'gb') {
+            $i = $this->is_num(str_replace(['GB', 'gb'], '', $size));
+            return $i * 1024 * 1024 * 1024;
+        }
+        return $size;
     }
 }
