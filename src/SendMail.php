@@ -240,7 +240,7 @@ class SendMail
 
     private function isSuccess(array $res):bool
     {
-        return isset($res['code'])&&$res['code']=='B0001';
+        return isset($res['code'])&&$res['code']=='00000';
     }
 
    private function is_num($i)
