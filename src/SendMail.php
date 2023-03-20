@@ -1,6 +1,6 @@
 <?php
 
-namespace Balance1230\dxsendmail;
+namespace Balance1230\Dxsendmail;
 
 use GuzzleHttp\Client;
 
