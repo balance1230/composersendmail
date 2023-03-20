@@ -1,0 +1,17 @@
+{
+    "name": "balance1230/dxsendmail",
+    "autoload": {
+        "psr-4": {
+            "Balance1230\\Dxsendmail\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "balance1230",
+            "email": "742512260@qq.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5"
+    }
+}
