@@ -104,7 +104,7 @@ class SendMail
      * @return array 发件入参
      * @throws \Exception
      */
-    public function validateSendParams(): array
+    private function validateSendParams(): array
     {
         if(!$this->sendMail)
         {
